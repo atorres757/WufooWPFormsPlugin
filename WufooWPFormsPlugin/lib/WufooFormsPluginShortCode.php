@@ -11,7 +11,7 @@ class WufooFormsPluginShortCode {
 		$query = isset($_GET) ? $_GET : array();
 		
 		$display = isset($atts['display']) ? $atts['display'] : 'auto';
-		$hash = isset($query['id']) ? $query['id'] : null;
+		$hash = isset($query['wuform-id']) ? $query['id'] : null;
 		
 		if (!empty($hash) && $display != "list") {
 			$form = $helper->getForm($hash);
