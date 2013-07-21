@@ -1,4 +1,8 @@
 <?php
+
+require_once "lib/WufooFormsPluginWidget.php";
+require_once "lib/WufooFormsPluginShortCode.php";
+
 /**
  * Plugin Name.
  *
@@ -81,6 +85,16 @@ class WufooWPFormsPlugin {
 		//add_action( 'TODO', array( $this, 'action_method_name' ) );
 		//add_filter( 'TODO', array( $this, 'filter_method_name' ) );
 
+		// register Foo_Widget widget
+		function register_wufoo_forms_plugin_widget() {
+		    register_widget( 'WufooFormsPluginWidget' );
+		}
+		add_action( 'widgets_init', 'register_wufoo_forms_plugin_widget' );
+		
+		function register_wufoo_shortcode_plugin () {
+			return WufooFormsPluginShortCode::render();
+		}
+		add_shortcode( 'wufoo_forms_plugin', 'register_wufoo_shortcode_plugin');
 	}
 
 	/**

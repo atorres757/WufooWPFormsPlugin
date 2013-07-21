@@ -45,7 +45,7 @@ if (empty($config)) {
 	$message = "Update Configuration";
 }else{
 	try {
-		$forms = $viewHelper->getAllForms();
+		$forms = $viewHelper->getActiveForms();
 	}catch (Exception $ex) {
 		$message = $ex->getMessage();
 	}
@@ -83,7 +83,7 @@ if (empty($config)) {
 				</tr>
 			</thead>
 			<tbody>
-			<?php foreach ($forms as $form) { if (strtotime($form->EndDate) < time()) continue; ?>
+			<?php foreach ($forms as $form) { ?>
 				<tr>
 					<td><input name="hide_forms[]" type="checkbox" <?=(in_array($form->Hash,$config->hide_forms)? "checked" : "")?> value="<?=$form->Hash?>" /></td>
 					<td><?=$form->Name?></td>
