@@ -7,6 +7,7 @@ class WufooFormsPluginViewHelper {
 	
 	public $api;
 	public $config;
+	private $all_forms = null;
 	
 	public function __construct() {
 		$configMgr = new WufooFormsPluginConfigManager();
@@ -15,7 +16,10 @@ class WufooFormsPluginViewHelper {
 	}
 	
 	public function getAllForms () {
-		return $this->api->getForms();
+		if (is_null($this->all_forms)) {
+			$this->all_forms = $this->api->getForms();
+		}
+		return $this->all_forms;
 	}
 	
 	public function getForm ($hash) {
@@ -34,6 +38,16 @@ class WufooFormsPluginViewHelper {
 				unset($forms[$key]);
 		}
 		return $forms;
+	}
+	
+	public function getFormsSelectInputField ($selectId, $value) {
+		$forms = $this->getAllForms();
+		$input = "<select id=\"{$selectId}\" name=\"{$selectId}\">\n";
+		foreach ($forms as $form) {
+			$selected = ($value == $form->Hash) ? "selected" : "";
+			$input .= "<option {$selected} value=\"{$form->Hash}\">{$form->Name}</option>\n";
+		}
+		return $input . "</select>\n";
 	}
 	
 	private function getFormSnippet($hash, $subdomain) {

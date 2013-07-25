@@ -2,6 +2,7 @@
 
 require_once "lib/WufooFormsPluginWidget.php";
 require_once "lib/WufooFormsPluginShortCode.php";
+require_once "lib/WufooFormsPluginMetaBox.php";
 
 /**
  * Plugin Name.
@@ -91,10 +92,21 @@ class WufooWPFormsPlugin {
 		}
 		add_action( 'widgets_init', 'register_wufoo_forms_plugin_widget' );
 		
-		function register_wufoo_shortcode_plugin () {
+		function register_wufoo_forms_shortcode_plugin () {
 			return WufooFormsPluginShortCode::render();
 		}
-		add_shortcode( 'wufoo_forms_plugin', 'register_wufoo_shortcode_plugin');
+		add_shortcode( 'wufoo_forms_plugin', 'register_wufoo_forms_shortcode_plugin');
+		
+		/**
+		 * Calls the meta box on the post edit screen
+		 */
+		function register_wufoo_forms_plugin_metabox() 
+		{
+		    return WufooFormsPluginMetaBox::add_meta_box();
+		}
+		if ( is_admin() )
+		    add_action( 'add_meta_boxes', 'register_wufoo_forms_plugin_metabox' );
+		    add_action( 'save_post', array( new WufooFormsPluginMetaBox(), 'save' ) );
 	}
 
 	/**

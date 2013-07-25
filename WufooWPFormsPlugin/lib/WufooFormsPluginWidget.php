@@ -16,13 +16,23 @@ class WufooFormsPluginWidget extends WP_Widget {
 
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
-		$viewHelper = new WufooFormsPluginViewHelper();
-		$forms = $viewHelper->getActivePublicForms();
+		
+		$formCount = 0;
+		$values = get_post_meta( get_the_ID() );
+		$metaBoxPlugin = new WufooFormsPluginMetaBox();
+	
 		$ul = "<ul>\n";
-		foreach ($forms as $form) {
-			$ul .= "<li>{$form->Name} {$form->EndDate}</li>\n";
+		foreach ($values as $key => $data) {
+			if (preg_match("/^{$metaBoxPlugin->getPluginName()}/", $key)) {
+				$formCount++;
+				list($text, $link) = explode($metaBoxPlugin->getSeparator(), $data[0]);
+				$ul .= '<li><a href="'.$link.'">'.$text.'</a></li>';
+			}
 		}
 		$ul .= "</ul>\n";
+		
+		if ($formCount > 0) $ul = "<nav class=\"page-sub-menu\"><li class=\"pagenav\">Register Here {$ul}</li></nav>";
+		
 		echo $ul;
 	}
 
