@@ -68,7 +68,7 @@ if (empty($config)) {
 		
 		<input type="submit" name="save-config" value="Save" />
 	</form>
-	
+	<!-- 
 	<h2>The following forms are active. Pick which forms to <strong>Exclude</strong> from your list.</h2>
 	<form action="" method="post">
 		<table>
@@ -98,5 +98,5 @@ if (empty($config)) {
 	
 		<input type="submit" name="save-show-forms" value="Save" />
 	</form>
-	
+	 -->
 </div>

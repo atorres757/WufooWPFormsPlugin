@@ -29,7 +29,7 @@ class WufooFormsPluginMetaBox {
 	public static function add_meta_box() {
 		add_meta_box(
 			"wufoo_forms_plugin_meta_box"
-			,__( 'Add Wufoo Forms', WufooFormsPluginMetaBox::LANG )
+			,__( 'Wufoo Form Links', WufooFormsPluginMetaBox::LANG )
 			,array( new WufooFormsPluginMetaBox(), 'render_meta_box_content' )
 			,'page'
 			,'advanced'
@@ -37,7 +37,7 @@ class WufooFormsPluginMetaBox {
 		);
 		add_meta_box(
 			"wufoo_forms_plugin_meta_box"
-			,__( 'Add Wufoo Forms', WufooFormsPluginMetaBox::LANG )
+			,__( 'Wufoo Form Links', WufooFormsPluginMetaBox::LANG )
 			,array( new WufooFormsPluginMetaBox(), 'render_meta_box_content' )
 			,'post'
 			,'advanced'
@@ -105,6 +105,7 @@ class WufooFormsPluginMetaBox {
 				$this->renderFieldSet (substr($key, -1), $data[0], true);
 			}
 		}
+		echo "<h4>New Link</h4>";
 		$this->renderFieldSet ('new', "");
 	}
 	
@@ -113,7 +114,7 @@ class WufooFormsPluginMetaBox {
 		echo '<label for="'.$this->plugin_name.'_'.$id.'_text">';
 		_e( 'Link Text', $this->plugin_name . '_textdomain' );
 		echo '</label> ';
-		echo '<input type="text" id="'.$this->plugin_name.'_'.$id.'_text" name="'.$this->plugin_name.'_text[]" value="'.esc_attr( $text ).'" size="255" />';
+		echo '<input type="text" id="'.$this->plugin_name.'_'.$id.'_text" name="'.$this->plugin_name.'_text[]" value="'.esc_attr( $text ).'" size="25" max-length="255" />';
 		echo '<label for="'.$this->plugin_name.'_form">';
 		_e( 'Wufoo Form', $this->plugin_name . '_textdomain' );
 		echo '</label> ';

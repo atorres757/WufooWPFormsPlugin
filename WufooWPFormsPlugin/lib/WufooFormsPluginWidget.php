@@ -26,7 +26,7 @@ class WufooFormsPluginWidget extends WP_Widget {
 			if (preg_match("/^{$metaBoxPlugin->getPluginName()}/", $key)) {
 				$formCount++;
 				list($text, $link) = explode($metaBoxPlugin->getSeparator(), $data[0]);
-				$ul .= '<li><a href="'.$link.'">'.$text.'</a></li>';
+				$ul .= '<li><a target="_blank" href="'.$link.'">'.$text.'</a></li>';
 			}
 		}
 		$ul .= "</ul>\n";
